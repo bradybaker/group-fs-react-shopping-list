@@ -1,18 +1,24 @@
 import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
+import AddGroceryItem from '../AddGroceryItem/AddGroceryItem'
 
 
 class App extends Component {
-
+  
   state = {
-    shoppingList: []
+    shoppingList: [],
+    newGrocery: {
+      item: '', 
+      quantity: 0,
+      unit: ''
+    }
   }
 
   componentDidMount() {
     this.getGroceries();
   }
-
+ 
   getGroceries = () => {
     axios({
       method: 'GET',
@@ -20,7 +26,7 @@ class App extends Component {
     }).then(res => {
       console.log('here are all the groceries on the list', res.data);
       this.setState({
-        shoppingList: [...this.state.shoppingList, res.data]
+        shoppingList: [res.data]
       })
     }).catch((error) => {
       alert('Unable to get student list.');
@@ -52,9 +58,35 @@ class App extends Component {
       })
   }
 
-  render() {
+  handleChangeFor = (propertyName) => (event) => {
+    this.setState({
+      newGrocery: {
+        ...this.state.newGrocery,
+        [propertyName]: event.target.value,
+      }
+    });
+  }
 
-    console.log(this.state.shoppingList);
+  handleSubmit = (event) => {
+    event.preventDefault();
+    console.log (`this.state.newGrocery`, this.state.newGrocery);
+    if (this.state.newGrocery.item) {
+      console.log (`this.state.newGrocery in handlesubmit`, this.state.newGrocery);
+      this.postGroceries(this.state.newGrocery)
+      this.setState({
+        // shoppingList: [...this.state.shoppingList, this.state.newGrocery],
+        newGrocery: {
+          item: '',
+          quantity: 0,
+          unit: ''
+        },
+      });
+    } else {
+      alert('The new groceries needs an item!');
+    }
+  }
+
+  render() {
 
     return (
       <div className="App">
@@ -62,6 +94,11 @@ class App extends Component {
           <h1>My Shopping List</h1>
         </header>
         <main>
+          <AddGroceryItem 
+            newGrocery={this.state.newGrocery}
+            handleChangeFor={this.handleChangeFor}
+            handleSubmit={this.handleSubmit}
+          />
           <p>Under Construction...</p>
         </main>
       </div>
