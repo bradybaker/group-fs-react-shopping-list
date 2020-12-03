@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import GroceryCard from '../GroceryCard/GroceryCard'
+import GroceryItem from '../GroceryItem/GroceryItem';
 
 class GroceryList extends Component {
     state = {  }
@@ -7,7 +7,7 @@ class GroceryList extends Component {
         return ( 
             <div>
                 {this.props.groceries.map( item => 
-                        <GroceryCard item={item} key={item.id} />
+                        <GroceryItem item={item} key={item.id} />
                     )
                 }
             </div>
