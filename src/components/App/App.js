@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
 import AddGroceryItem from '../AddGroceryItem/AddGroceryItem'
+import GroceryList from '../GroceryList/GroceryList';
+import GroceryItem from '../GroceryItem/GroceryItem';
 
 
 class App extends Component {
@@ -100,6 +102,8 @@ class App extends Component {
             handleSubmit={this.handleSubmit}
           />
           <p>Under Construction...</p>
+          <GroceryList groceries={this.state.shoppingList} />
+          <GroceryItem />
         </main>
       </div>
     );
