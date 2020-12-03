@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
+import GroceryList from '../GroceryList/GroceryList';
 
 
 class App extends Component {
@@ -63,6 +64,7 @@ class App extends Component {
         </header>
         <main>
           <p>Under Construction...</p>
+          <GroceryList groceries={this.state.shoppingList} />
         </main>
       </div>
     );
