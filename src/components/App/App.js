@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
+import axios from 'axios';
+
 
 class App extends Component {
 
@@ -24,6 +26,30 @@ class App extends Component {
       alert('Unable to get student list.');
       console.log('Error in GET', error);
     })
+  }
+
+  postGroceries = (newGrocery) => {
+    console.log('POSTING new grocery in client ->', newGrocery)
+    axios.post('/list', newGrocery)
+      .then((response) => {
+        console.log('POSTING in client', response)
+        this.getGroceries()
+      })
+      .catch((error) => {
+        console.log('Error in POSTING client', error)
+      })
+  }
+
+  deleteGroceryItem = (event, groceryId) => {
+    axios.delete(`/list/${groceryId}`)
+      .then((response) => {
+        console.log(`deleted song`, response, response.data);
+        this.getGroceries();
+      })
+      .catch((error) => {
+        alert('Something went wrong in DELETE');
+        console.log(`Error in DELETE`, error);
+      })
   }
 
   render() {
