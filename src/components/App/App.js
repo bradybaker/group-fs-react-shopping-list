@@ -10,7 +10,7 @@ class App extends Component {
     axios.post('/list', newGrocery)
       .then((response) => {
         console.log('POSTING in client', response)
-        this.getGroceries()
+        this.getAllGroceries()
       })
       .catch((error) => {
         console.log('Error in POSTING client', error)
