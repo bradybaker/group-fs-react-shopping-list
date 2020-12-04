@@ -8,7 +8,7 @@ class GroceryList extends Component {
             <div>
                 {this.props.groceries.map(item =>
                     <GroceryItem item={item} key={item.id}
-                        deleteGroceryItem={this.props.deleteGroceryItem} />
+                        deleteGroceryItem={this.props.deleteGroceryItem} setPurchaseStatus={this.props.setPurchaseStatus}/>
                 )
                 }
             </div>
@@ -16,4 +16,4 @@ class GroceryList extends Component {
     }
 }
 
-export default GroceryList;
+export default GroceryList; 
