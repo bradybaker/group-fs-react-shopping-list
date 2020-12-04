@@ -7,13 +7,14 @@ const pool = require('../modules/pool.js');
 router.get('/', (req, res) => {
     const sqlQueryText = `SELECT * FROM groceries`;
     pool.query(sqlQueryText)
-    .then( result => {
-        res.send(result.rows);
-    })
-    .catch(err => {
-        console.log('Error making GET request to database', error);
-        res.sendStatus(500);
-    })
+        .then(result => {
+            res.send(result.rows);
+            console.log('this is result rows', result.rows)
+        })
+        .catch(err => {
+            console.log('Error making GET request to database', error);
+            res.sendStatus(500);
+        })
 })
 
 router.post('/', (req, res) => {

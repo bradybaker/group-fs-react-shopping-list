@@ -7,10 +7,12 @@ class GroceryItem extends Component {
             <div>
                 <div className="card">
                     <div className="card-body">
-                        <p className="card-text">(Item)</p>
-                        <p className="card-text">(Quantity) (Unit)</p>
+                        <p className="card-text">YAY{this.props.item.item}</p>
+                        {/* {JSON.stringify(this.props.item.unit)} */}
+                        <p className="card-text">{this.props.item.quantity} {this.props.item.unit}</p>
                         <button type="button" className="btn btn-primary">Buy</button>
-                        <button type="button" className="btn btn-danger">Remove</button>
+                        <button type="button" className="btn btn-danger"
+                            onClick={(event) => this.props.deleteGroceryItem(event, this.props.item.id)}>Remove</button>
                     </div>
                 </div>
             </div>
