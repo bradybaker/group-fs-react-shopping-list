@@ -15,7 +15,7 @@ class App extends Component {
       unit: ''
     }
   }
-
+ 
   componentDidMount() {
     this.getGroceries();
   }
@@ -44,6 +44,18 @@ class App extends Component {
       })
       .catch((error) => {
         console.log('Error in POSTING client', error)
+      })
+  }
+
+  setPurchaseStatus = (event, groceryId) => {
+    axios.put(`/list/${groceryId}`)
+      .then((response) => {
+        console.log(`PUT update`, response, response.data);
+        this.getGroceries();
+      })
+      .catch((error) => {
+        alert('Something went wrong in PUT');
+        console.log(`Error in PUT`, error);
       })
   }
 
@@ -100,9 +112,10 @@ class App extends Component {
             handleChangeFor={this.handleChangeFor}
             handleSubmit={this.handleSubmit}
           />
-          <p>Under Construction...</p>
+          <hr/>
+          <h3>Your Grocery List . . . </h3>
           <GroceryList groceries={this.state.shoppingList}
-            deleteGroceryItem={this.deleteGroceryItem} />
+            deleteGroceryItem={this.deleteGroceryItem} setPurchaseStatus={this.setPurchaseStatus} />
         </main>
       </div>
     );

@@ -5,7 +5,7 @@ const pool = require('../modules/pool.js');
 // TODO - Add routes here...
 
 router.get('/', (req, res) => {
-    const sqlQueryText = `SELECT * FROM groceries`;
+    const sqlQueryText = `SELECT * FROM groceries ORDER BY purchased, item;`;
     pool.query(sqlQueryText)
         .then(result => {
             res.send(result.rows);
@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
             console.log('Error making GET request to database', error);
             res.sendStatus(500);
         })
-})
+}) 
 
 router.post('/', (req, res) => {
     const newGrocery = req.body
@@ -30,6 +30,20 @@ router.post('/', (req, res) => {
         })
 })
 
+router.put('/:id', (req, res) => {
+    let reqId = req.params.id;
+    console.log('PUT purchase request for id', reqId);
+    let sqlText = 'UPDATE groceries SET purchased = True WHERE id=$1;'
+    pool.query(sqlText, [reqId])
+        .then((result) => {
+            console.log('Grocery Item Updated to Purchased', reqId);
+            res.sendStatus(200);
+        })
+        .catch((error) => {
+            console.log(`Error updating database: ${sqlText}`, error);
+            res.sendStatus(500); // Good server always responds
+        })
+})
 
 router.delete('/:id', (req, res) => {
     let reqId = req.params.id;
