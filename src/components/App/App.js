@@ -3,15 +3,14 @@ import './App.css';
 import axios from 'axios';
 import AddGroceryItem from '../AddGroceryItem/AddGroceryItem'
 import GroceryList from '../GroceryList/GroceryList';
-import GroceryItem from '../GroceryItem/GroceryItem';
 
 
 class App extends Component {
-  
+
   state = {
     shoppingList: [],
     newGrocery: {
-      item: '', 
+      item: '',
       quantity: 0,
       unit: ''
     }
@@ -20,7 +19,7 @@ class App extends Component {
   componentDidMount() {
     this.getGroceries();
   }
- 
+
   getGroceries = () => {
     axios({
       method: 'GET',
@@ -28,10 +27,10 @@ class App extends Component {
     }).then(res => {
       console.log('here are all the groceries on the list', res.data);
       this.setState({
-        shoppingList: [res.data]
+        shoppingList: res.data
       })
     }).catch((error) => {
-      alert('Unable to get student list.');
+      alert('Unable to get groceries.');
       console.log('Error in GET', error);
     })
   }
@@ -71,9 +70,9 @@ class App extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log (`this.state.newGrocery`, this.state.newGrocery);
+    console.log(`this.state.newGrocery`, this.state.newGrocery);
     if (this.state.newGrocery.item) {
-      console.log (`this.state.newGrocery in handlesubmit`, this.state.newGrocery);
+      console.log(`this.state.newGrocery in handlesubmit`, this.state.newGrocery);
       this.postGroceries(this.state.newGrocery)
       this.setState({
         // shoppingList: [...this.state.shoppingList, this.state.newGrocery],
@@ -96,14 +95,14 @@ class App extends Component {
           <h1>My Shopping List</h1>
         </header>
         <main>
-          <AddGroceryItem 
+          <AddGroceryItem
             newGrocery={this.state.newGrocery}
             handleChangeFor={this.handleChangeFor}
             handleSubmit={this.handleSubmit}
           />
           <p>Under Construction...</p>
-          <GroceryList groceries={this.state.shoppingList} />
-          <GroceryItem />
+          <GroceryList groceries={this.state.shoppingList}
+            deleteGroceryItem={this.deleteGroceryItem} />
         </main>
       </div>
     );
